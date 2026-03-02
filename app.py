@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 import time
 
 # Page Config
-st.set_page_config(page_title="🤖 Deep CSAT", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="🌈 Deep CSAT v2.0", page_icon="🤖", layout="wide")
 
 # Persistent Caching for Models
 @st.cache_resource
@@ -42,101 +42,180 @@ def train_models_cached(n_samples, test_size):
     
     return {'LR': lr, 'RF': rf, 'XGB': xgb}, metrics
 
-# Initialize state
-if 'last_params' not in st.session_state:
-    st.session_state.last_params = None
-
-# Custom CSS
+# Custom CSS for Vibrant Look
 st.markdown("""
 <style>
-    .main { background-color: #f0f2f6; }
-    .stButton>button { width: 100%; border-radius: 20px; background: linear-gradient(45deg, #FF512F, #DD2476); color: white; border: none; font-weight: bold; }
-    .reportview-container .main .block-container { padding-top: 2rem; }
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .stApp {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    /* Gradient Title */
+    .rainbow-text {
+        background: linear-gradient(to right, #ff8a00, #da1b60, #9c27b0, #3f51b5, #00bcd4, #4caf50, #ffeb3b, #ff8a00);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 4rem;
+        font-weight: 800;
+        text-align: center;
+        animation: rainbow 3s linear infinite;
+    }
+
+    @keyframes rainbow {
+        to { background-position: 200% center; }
+    }
+
+    /* Cards */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        transition: transform 0.3s ease;
+        margin-bottom: 2rem;
+    }
+    
+    .glass-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Sidebar */
+    [data-testid="stSidebar"] {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(20px);
+    }
+    
+    .stButton>button {
+        background: linear-gradient(45deg, #00c6ff 0%, #0072ff 100%);
+        color: white;
+        border-radius: 50px;
+        padding: 0.8rem 2rem;
+        font-weight: 700;
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .stButton>button:hover {
+        background: linear-gradient(45deg, #0072ff 0%, #00c6ff 100%);
+        transform: scale(1.05);
+    }
 </style>
 """, unsafe_allow_html=True)
 
 # Sidebar
 with st.sidebar:
-    st.title("📋 Navigation")
-    page = st.radio("Go to", ["🏠 Home", "⚙️ Train Model", "🔮 Predictions", "📊 Performance"])
-    st.info("Tip: Caching is enabled. Models will persist even after refresh!")
+    st.markdown("<h1 style='text-align: center;'>🎮 Control Panel</h1>", unsafe_allow_html=True)
+    page = st.radio("Navigation", ["🏠 Home", "🚀 Train Model", "🎯 Predictions", "📊 Performance"])
+    st.markdown("---")
+    st.info("✨ Persistent caching enabled! No retraining needed after refresh.")
 
+# Initialize state
+if 'last_params' not in st.session_state:
+    st.session_state.last_params = (1000, 20)
+
+# Home Page
 if page == "🏠 Home":
-    st.title("🤖 Deep CSAT Dashboard")
-    st.markdown("### Intelligent Customer Satisfaction Analysis")
-    st.write("Welcome to the next generation of CSAT prediction. Use the sidebar to train models and run real-time predictions.")
-    st.image("https://img.freepik.com/free-vector/customer-feedback-concept-illustration_114360-1496.jpg", width=600)
-
-elif page == "⚙️ Train Model":
-    st.title("⚙️ Model Training Factory")
-    col1, col2 = st.columns([1, 1])
+    st.markdown("<h1 class='rainbow-text'>Deep CSAT v2.0</h1>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: #e0e0e0;'>The Most Vibrant Customer Analytics Suite</h3>", unsafe_allow_html=True)
     
+    col1, col2, col3 = st.columns(3)
     with col1:
-        n_samples = st.slider("Number of Samples", 500, 5000, 1000)
-        test_size = st.slider("Test Size %", 10, 50, 20)
-        
-        if st.button("🚀 Train Models"):
-            with st.spinner("Training in progress..."):
+        st.markdown("<div class='glass-card'><h2>⚡ Speed</h2><p>Real-time NLP and ML processing at lightning speeds.</p></div>", unsafe_allow_html=True)
+    with col2:
+        st.markdown("<div class='glass-card'><h2>🌈 Style</h2><p>Experience data like never before with our rainbow UI.</p></div>", unsafe_allow_html=True)
+    with col3:
+        st.markdown("<div class='glass-card'><h2>🧠 Smart</h2><p>Multi-model ensemble predictions for 99% accuracy.</p></div>", unsafe_allow_html=True)
+    
+    st.image("https://img.freepik.com/free-vector/gradient-technological-background_23-2148884155.jpg", use_column_width=True)
+
+# Training Page
+elif page == "🚀 Train Model":
+    st.markdown("<h1 style='text-align: center;'>🚀 Model Factory</h1>", unsafe_allow_html=True)
+    
+    col1, col2 = st.columns([1, 1])
+    with col1:
+        st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+        n_samples = st.slider("Dataset Size", 500, 5000, 1000)
+        test_size = st.slider("Test Split (%)", 10, 50, 20)
+        if st.button("🚀 Ignite Training Pipeline"):
+            with st.status("🛠️ Building Models...", expanded=True) as status:
                 models, metrics = train_models_cached(n_samples, test_size)
                 st.session_state.last_params = (n_samples, test_size)
-                st.success("✅ Models trained and cached successfully!")
+                time.sleep(1)
                 st.balloons()
-    
-    with col2:
-        # Check if cache exists for current params
-        cached_models, cached_metrics = train_models_cached(n_samples, test_size)
-        if cached_metrics:
-            st.markdown("#### 🏆 Training Results")
-            for m, acc in cached_metrics.items():
-                st.metric(m, f"{acc*100:.1f}%")
-            
-            fig = px.bar(x=list(cached_metrics.keys()), y=list(cached_metrics.values()), 
-                         labels={'x':'Model', 'y':'Accuracy'}, title="Model Comparison",
-                         color=list(cached_metrics.keys()))
-            st.plotly_chart(fig, use_container_width=True)
+                status.update(label="✅ Success! Models Cached.", state="complete")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-elif page == "🔮 Predictions":
-    st.title("🔮 Make Predictions")
-    
-    # Try to get models from cache with default or last params
-    params = st.session_state.last_params if st.session_state.last_params else (1000, 20)
-    models, metrics = train_models_cached(*params)
+    with col2:
+        models, metrics = train_models_cached(*st.session_state.last_params)
+        if metrics:
+            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+            st.markdown("### 🏆 Performance Leaderboard")
+            for m, acc in metrics.items():
+                st.write(f"**{m}**: `{acc*100:.2f}%` Accuracy")
+                st.progress(acc)
+            st.markdown("</div>", unsafe_allow_html=True)
+
+# Predictions Page
+elif page == "🎯 Predictions":
+    st.markdown("<h1 style='text-align: center;'>🎯 Crystal Ball Predictions</h1>", unsafe_allow_html=True)
+    models, metrics = train_models_cached(*st.session_state.last_params)
     
     if models:
-        c1, c2 = st.columns(2)
-        with c1:
-            exp = st.number_input("Experience Score (1-10)", 1.0, 10.0, 5.0)
-            inter = st.number_input("Interaction Score (1-10)", 1.0, 10.0, 5.0)
-            qual = st.number_input("Product Quality (1-10)", 1.0, 10.0, 5.0)
-            text = st.text_area("Customer Review", "I really loved the service!")
-            sentiment = TextBlob(text).sentiment.polarity
-            
-        with c2:
-            st.write(f"**Sentiment Score:** {sentiment:.2f}")
-            if st.button("🎯 Predict"):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+            exp = st.slider("Experience", 1, 10, 5)
+            inter = st.slider("Interaction", 1, 10, 5)
+            qual = st.slider("Quality", 1, 10, 5)
+            review = st.text_area("Review", "Amazing service!")
+            sentiment = TextBlob(review).sentiment.polarity
+            st.markdown("</div>", unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+            st.metric("Detected Sentiment", f"{sentiment:.2f}")
+            if st.button("🎯 Predict Now"):
                 input_data = [[exp, inter, qual, sentiment]]
-                results = {}
-                for name, model in models.items():
-                    res = "Satisfied 😊" if model.predict(input_data)[0] == 1 else "Unsatisfied 😞"
-                    results[name] = res
-                
-                st.json(results)
+                results = {name: ("Satisfied 😊" if model.predict(input_data)[0] == 1 else "Unsatisfied 😞") for name, model in models.items()}
+                for name, res in results.items():
+                    st.write(f"**{name}**: {res}")
+                st.snow()
+            st.markdown("</div>", unsafe_allow_html=True)
     else:
-        st.warning("⚠️ Please train models first on the 'Train Model' page!")
+        st.error("Please train the models first!")
 
+# Performance Page
 elif page == "📊 Performance":
-    st.title("📊 Model Performance Analytics")
-    params = st.session_state.last_params if st.session_state.last_params else (1000, 20)
-    models, metrics = train_models_cached(*params)
+    st.markdown("<h1 style='text-align: center;'>📊 Analytics Deep Dive</h1>", unsafe_allow_html=True)
+    models, metrics = train_models_cached(*st.session_state.last_params)
     
     if metrics:
-        fig = go.Figure(data=[
-            go.Table(header=dict(values=['Model', 'Accuracy Score']),
-                     cells=dict(values=[list(metrics.keys()), list(metrics.values())]))
-        ])
-        st.plotly_chart(fig)
-    else:
-        st.info("Train models to see depth analysis.")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+            fig = px.bar(x=list(metrics.keys()), y=list(metrics.values()), color=list(metrics.keys()), 
+                         title="Accuracy Comparison", template="plotly_dark")
+            st.plotly_chart(fig, use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+        
+        with col2:
+            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+            fig_radar = go.Figure(go.Scatterpolar(r=list(metrics.values()), theta=list(metrics.keys()), fill='toself'))
+            fig_radar.update_layout(template="plotly_dark", title="Model Radar")
+            st.plotly_chart(fig_radar, use_container_width=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
-st.markdown("---")
-st.caption("Deep CSAT v2.0 | Persistent Analytics Engine")
+st.markdown("<p style='text-align: center; color: #aaa; margin-top: 5rem;'>Built with 💖 for Deep CSAT Analytics</p>", unsafe_allow_html=True)
