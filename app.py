@@ -1,4 +1,5 @@
-import streamlit as st
+import streamlit as st179
+
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -94,6 +95,24 @@ st.markdown("""
         box-shadow: 0 0 30px rgba(0, 198, 255, 0.3);
         border: 1px solid rgba(0, 198, 255, 0.5);
     }
+        
+    /* Column containers styling for glass-card effect */
+    [data-testid="column"] {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 2rem;
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(0, 198, 255, 0.1);
+        transition: all 0.4s ease;
+        margin-bottom: 2rem;
+    }
+    
+    [data-testid="column"]:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0 30px rgba(0, 198, 255, 0.3);
+        border: 1px solid rgba(0, 198, 255, 0.5);
+    }
 
     /* Sidebar */
     [data-testid="stSidebar"] {
@@ -178,7 +197,6 @@ elif page == "🚀 Model Factory":
     
     col1, col2 = st.columns([1, 1])
     with col1:
-        st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
         st.write("### ⚙️ Build Parameters")
         n_samples = st.slider("Dataset Population", 500, 5000, 1000)
         test_size = st.slider("Validation Split (%)", 10, 50, 20)
@@ -190,10 +208,9 @@ elif page == "🚀 Model Factory":
                 time.sleep(1)
                 st.balloons()
                 status.update(label="✅ Success! Models Synchronized.", state="complete")
-        st.markdown("</div>", unsafe_allow_html=True)
 
     with col2:
-        st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
+    
         st.write("### 🏆 Active Performance")
         params = get_safe_params()
         models, metrics = train_models_cached(*params)
@@ -201,7 +218,6 @@ elif page == "🚀 Model Factory":
             for m, acc in metrics.items():
                 st.write(f"**{m} Core**: `{acc*100:.2f}%` Accuracy")
                 st.progress(acc)
-        st.markdown("</div>", unsafe_allow_html=True)
 
 # Predictions Page
 elif page == "🎯 AI Predictions":
