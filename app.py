@@ -227,17 +227,14 @@ elif page == "🎯 AI Predictions":
     if models:
         col1, col2 = st.columns([1, 1])
         with col1:
-            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
             st.write("### 📝 Customer Profile")
             exp = st.slider("Product Experience", 1, 10, 5)
             inter = st.slider("Support Interaction", 1, 10, 5)
             qual = st.slider("Build Quality", 1, 10, 5)
             review = st.text_area("Customer Sentiment (Text)", "The experience was absolutely brilliant and I'm very happy!")
             sentiment = TextBlob(review).sentiment.polarity
-            st.markdown("</div>", unsafe_allow_html=True)
         
         with col2:
-            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
             st.write("### 🔮 Predicted Outcome")
             st.metric("NLP Sentiment Score", f"{sentiment:.2f}")
             if st.button("🎯 RUN PREDICTION"):
@@ -250,7 +247,6 @@ elif page == "🎯 AI Predictions":
                     else:
                         st.error(f"**{name}**: {res}")
                 st.snow()
-            st.markdown("</div>", unsafe_allow_html=True)
     else:
         st.error("Factory Offline. Please train models first!")
 
@@ -263,18 +259,14 @@ elif page == "📊 Deep Analytics":
     if metrics:
         col1, col2 = st.columns(2)
         with col1:
-            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
             fig = px.bar(x=list(metrics.keys()), y=list(metrics.values()), color=list(metrics.keys()), 
                          title="Accuracy Benchmarks", template="plotly_dark",
                          color_discrete_sequence=px.colors.qualitative.Prism)
             st.plotly_chart(fig, use_container_width=True)
-            st.markdown("</div>", unsafe_allow_html=True)
         
         with col2:
-            st.markdown("<div class='glass-card'>", unsafe_allow_html=True)
             fig_radar = go.Figure(go.Scatterpolar(r=list(metrics.values()), theta=list(metrics.keys()), fill='toself', line_color='#ff00cc'))
             fig_radar.update_layout(template="plotly_dark", title="Neural Radar Map")
             st.plotly_chart(fig_radar, use_container_width=True)
-            st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown("<p style='text-align: center; color: #888; margin-top: 5rem;'>Built with 💓 | DEEP CSAT v2.0 Persistent Core</p>", unsafe_allow_html=True)
