@@ -97,8 +97,24 @@ st.markdown("""
 
     /* Sidebar */
     [data-testid="stSidebar"] {
-        background: rgba(0, 0, 0, 0.5);
+        background: linear-gradient(135deg, rgba(48, 43, 99, 0.8) 0%, rgba(36, 36, 62, 0.8) 100%);
         border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+        
+    /* Sidebar text and labels - Enhanced visibility */
+    [data-testid="stSidebar"] label, [data-testid="stSidebar"] div {
+        color: #e0e0e0 !important;
+        font-weight: 500 !important;
+    }
+    
+    /* Radio buttons styling */
+    [data-testid="stSidebar"] [role="radio"] {
+        accent-color: #ff00cc !important;
+    }
+    
+    /* Make sidebar text more visible */
+    [data-testid="stSidebar"] {
+        color: #ffffff !important;
     }
     
     .stButton>button {
