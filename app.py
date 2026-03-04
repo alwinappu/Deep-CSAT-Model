@@ -157,6 +157,51 @@ st.markdown("""
         color: #00d2ff !important;
         font-weight: 700;
     }
+     
+ /* Fix dark text in Streamlit widgets */
+ [data-testid="stMarkdownContainer"] label {
+ color: #ffffff !important;
+ font-weight: 600 !important;
+ }
+ 
+ /* Slider labels */
+ [data-baseweb="slider"] label {
+ color: #ffffff !important;
+ }
+ 
+ /* Metric labels */
+ [data-testid="metric-container"] label {
+ color: #ffffff !important;
+ }
+ 
+ /* Text area labels */
+ [data-testid="textArea"] label {
+ color: #ffffff !important;
+ }
+ 
+ /* All input labels */
+ label {
+ color: #ffffff !important;
+ }
+ 
+ /* Slider text */
+ .stSlider label {
+ color: #ffffff !important;
+ font-weight: 600 !important;
+ }
+ 
+ /* Metric text */
+ .stMetric label {
+ color: #ffffff !important;
+ font-weight: 600 !important;
+ }
+ 
+ /* Make sure all text in main area is readable */
+ [data-testid="stMainBlockContainer"] label,
+ [data-testid="stMainBlockContainer"] .stLabel {
+ color: #ffffff !important;
+ }
+
 </style>
 """, unsafe_allow_html=True)
 
